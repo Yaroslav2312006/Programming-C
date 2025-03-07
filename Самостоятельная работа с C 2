@@ -1,0 +1,13 @@
+#include <stdio.h>
+int main() {
+    double a, b, f, result;
+    printf("Введите значение переменной a: ");
+    scanf("%lf", &a);
+    printf("Введите значение переменной b: ");
+    scanf("%lf", &b);
+    printf("Введите значение переменной f: ");
+    scanf("%lf", &f);
+    result = (a + b - f / a) + f * a * a - (a + b);
+    printf("Результат выражения (a + b - f / a) + f * a * a - (a + b) равен: %.2lf\n", result);
+    return 0;
+}
