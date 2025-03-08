@@ -1,7 +1,7 @@
 #include <stdio.h>
 int main() {
     double a, b, f, result;
-    printf("Введите значение переменной a: ");
+    printf("Введите значение переменой a: ");
     scanf("%lf", &a);
     printf("Введите значение переменной b: ");
     scanf("%lf", &b);
