@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
 /*
  * Объявить вещественные переменные a, b, c и задать их значения.
  * Предполагаем, что a, b, c есть коэффициенты квадратного уравнения 
@@ -29,9 +28,10 @@ int main(int argc, char *argv[]) {
       else {
         printf("Корней нет, дискриминант меньше нуля.\n");
     }
-    printf("решить снова?");
+    printf("решить снова?\n");
+    while (getchar() != '\n');
     scanf("%c", &choice);
+    printf("choice = %c \n",choice);
 } while (choice == 'y');
     return 0;
 }
-
