@@ -12,6 +12,8 @@
 int main(int argc, char *argv[]) {
     double a, b, c;
     double x, x1, x2, d;
+    char choice;
+    do {
     a = 5.3; 
     b = 12.5; 
     c = 1.1; 
@@ -27,5 +29,9 @@ int main(int argc, char *argv[]) {
       else {
         printf("Корней нет, дискриминант меньше нуля.\n");
     }
+    printf("решить снова?");
+    scanf("%c", &choice);
+} while (choice == 'y'|| choice == 'Y');
     return 0;
 }
+
