@@ -13,10 +13,8 @@ int main(int argc, char *argv[]) {
     double x, x1, x2, d;
     char choice;
     do {
-    a = 5.3; 
-    b = 12.5; 
-    c = 1.1; 
-    d = b * b - 4 * a * c;
+    printf("Введите значения a, b, c:");
+    scanf("%lf %lf %lf",&a, &b, &c);
     if (d > 0) {
         x1 = -b / (2 * a) + sqrt(d) / (2 * a);
         x2 = -b / (2 * a) - sqrt(d) / (2 * a);
