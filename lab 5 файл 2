@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+double** create_matrix(int n) {
+    double** matrix = (double**)malloc(n * sizeof(double*));
+    for (int i = 0; i < n; i++) {
+        matrix[i] = (double*)malloc(n * sizeof(double));
+    }
+    return matrix;
+}
+void free_matrix(double** matrix, int n) {
+    for (int i = 0; i < n; i++) {
+        free(matrix[i]);
+    }
+    free(matrix);
+}
+double** matrix_operations(double** A, double** B, int n, char operation) {
+    double** result = create_matrix(n);
+    int i, j, k; 
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            switch (operation) {
+                case '+':
+                    result[i][j] = A[i][j] + B[i][j];
+                    break;
+                case '-':
+                    result[i][j] = A[i][j] - B[i][j];
+                    break;
+                case '*':
+                    result[i][j] = 0;
+                    for (k = 0; k < n; k++) {
+                        result[i][j] += A[i][k] * B[k][j];
+                    }
+                    break;
+                default:
+                    printf("Invalid operation\n");
+                    free_matrix(result, n);
+                    return NULL;
+            }
+        }
+    } 
+    return result;
+}
