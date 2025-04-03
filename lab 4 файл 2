@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 double calculate_perimeter(double a, double b, double c) {
-    return a + b + c;
+    return a + b + ;
 }
 double calculate_area(double a, double b, double c) {
     double s = (a + b + c) / 2; 
