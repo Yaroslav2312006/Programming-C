@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <stdio.>
 #include <math.h>
 double calculate_perimeter(double a, double b, double c) {
     return a + b + c;
