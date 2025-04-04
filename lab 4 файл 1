@@ -1,5 +1,5 @@
 #include <stdio.h>
-double calculate_perimeter(double a, double f, double c);
+double calculate_perimeter(double a, double b, double c);
 double calculate_area(double a, double b, double c);
 int main() {
     double a, b, c;
