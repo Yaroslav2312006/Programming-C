@@ -1,4 +1,4 @@
-#include <stdio.h
+#include <stdio.h>
 #include <stdlib.h>
 double** create_matrix(int n); 
 void free_matrix(double** matrix, int n); 
