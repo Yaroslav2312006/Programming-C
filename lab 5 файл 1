@@ -5,14 +5,7 @@ void free_matrix(double** matrix, int n);
 double** matrix_operations(double** A, double** B, int n, char operation); 
 int main() {
     int n;
-    printf("Enter the dimension of matrix n: ");
-    scanf("%d", &n);
-    double** A = create_matrix(n);
-    double** B = create_matrix(n);
-    printf("Enter the matrix dimension (A):\n");
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            scanf("%lf", &A[i][j]);
+   
         }
     }
     printf("Enter the dimension of the second matrix (B):\n");
