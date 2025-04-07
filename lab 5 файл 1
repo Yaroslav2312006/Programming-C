@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
+
 double** create_matrix(int n); 
 void free_matrix(double** matrix, int n); 
 double** matrix_operations(double** A, double** B, int n, char operation); 
