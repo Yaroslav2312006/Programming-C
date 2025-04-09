@@ -1,4 +1,4 @@
-
+#include <stdio.h>
 void checkEvenOdd(int num) {
     int temp = num;
     temp = temp >> 1;
