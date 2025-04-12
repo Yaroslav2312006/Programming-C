@@ -7,3 +7,6 @@ double calculate_area(double a, double b, double c) {
     double s = (a + b + c) / 2; 
     return sqrt(s * (s - a) * (s - b) * (s - c)); 
 }
+double calculate_height(double a, double b, double c) {
+    return 2 * ((a + b + c) / 2)/a;
+}
