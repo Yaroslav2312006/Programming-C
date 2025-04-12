@@ -1,17 +1,20 @@
 #include <stdio.h>
 double calculate_perimeter(double a, double b, double c);
 double calculate_area(double a, double b, double c);
+double calculate_height(double a, double b, double c);
 int main() {
     double a, b, c;
-    printf("Введите длины сторон треугольника  (a, b, c): ");
+    printf("Ââåäèòå äëèíû ñòîðîí:  (a, b, c): ");
     scanf("%lf %lf %lf", &a, &b, &c);
     if (a + b > c && a + c > b && b + c > a) {
         double perimeter = calculate_perimeter(a, b, c);
         double area = calculate_area(a, b, c);
-        printf("Периметр треугольника: %.2lf\n", perimeter);
-        printf("Площадь треугольника: %.2lf\n", area);
+        double height = calculate_height(a, b, c);
+        printf("Íàïèñàòü ïåðèìåòð: %.2lf\n", perimeter);
+        printf("Ïëîùàäü òðåóãîëüíèêà: %.2lf\n", area);
+        printf("Âûñîòà òðåóãîëüíèêà: %.2lf\n", height);
     } else {
-        printf("Ошибка: введенные значения не соответствуют неравенству треугольника.\n");
+        printf("Îøèáêà .\n");
     }
     return 0;
 }
