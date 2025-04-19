@@ -1,41 +1,44 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdio.h>   // Подключение библиотеки для ввода-вывода
+#include <stdlib.h>  // Подключение библиотеки для работы с памятью
+// Объявление функции для создания матрицы
 double** create_matrix(int n); 
+// Объявление функции для освобождения памяти, занятой матрицей
 void free_matrix(double** matrix, int n); 
+// Объявление функции для выполнения операций над двумя матрицами
 double** matrix_operations(double** A, double** B, int n, char operation); 
-int main() {
-    int n;
-   printf("Enter the dimension of matrix n: ");
-    scanf("%d", &n);
-    double** A = create_matrix(n);
-    double** B = create_matrix(n);
-    printf("Enter the matrix dimension (A):\n");
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            scanf("%lf", &A[i][j]);
+int main() {  // Начало функции main
+    int n;  // Объявление переменной для размерности матриц
+    printf("Enter the dimension of matrix n: ");  // Запрос размерности матриц у пользователя
+    scanf("%d", &n);  // Считывание размерности матриц
+    double** A = create_matrix(n);  // Создание первой матрицы A размером n x n
+    double** B = create_matrix(n);  // Создание второй матрицы B размером n x n
+    printf("Enter the matrix dimension (A):\n");  // Запрос ввода элементов первой матрицы A
+    for (int i = 0; i < n; i++) {  // Цикл по строкам матрицы A
+        for (int j = 0; j < n; j++) {  // Цикл по столбцам матрицы A
+            scanf("%lf", &A[i][j]);  // Считывание элемента матрицы A
         }
     }
-    printf("Enter the dimension of the second matrix (B):\n");
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            scanf("%lf", &B[i][j]);
+    printf("Enter the dimension of the second matrix (B):\n");  // Запрос ввода элементов второй матрицы B
+    for (int i = 0; i < n; i++) {  // Цикл по строкам матрицы B
+        for (int j = 0; j < n; j++) {  // Цикл по столбцам матрицы B
+            scanf("%lf", &B[i][j]);  // Считывание элемента матрицы B
         }
     }
-    char operation;
-    printf("Enter the operation sign (+, -, *): ");
-    scanf(" %c", &operation);
-    double** result = matrix_operations(A, B, n, operation);
-    if (result != NULL) {
-        printf("Result:\n");
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                printf("%lf ", result[i][j]);
+    char operation;  // Объявление переменной для хранения знака операции
+    printf("Enter the operation sign (+, -, *): ");  // Запрос знака операции у пользователя
+    scanf(" %c", &operation);  // Считывание знака операции
+    double** result = matrix_operations(A, B, n, operation);  // Выполнение операции над матрицами и сохранение результата
+    if (result != NULL) {  // Проверка успешности выполнения операции
+        printf("Result:\n");  // Вывод заголовка результата
+        for (int i = 0; i < n; i++) {  // Цикл по строкам результирующей матрицы
+            for (int j = 0; j < n; j++) {  // Цикл по столбцам результирующей матрицы
+                printf("%lf ", result[i][j]);  // Вывод элемента результирующей матрицы
             }
-            printf("\n");
+            printf("\n");  // Переход на новую строку после вывода строки результирующей матрицы
         }
-        free_matrix(result, n);
+        free_matrix(result, n);  // Освобождение памяти, занятой результирующей матрицей
     }
-    free_matrix(A, n);
-    free_matrix(B, n);
-    return 0;
+    free_matrix(A, n);  // Освобождение памяти, занятой первой матрицей A
+    free_matrix(B, n);  // Освобождение памяти, занятой второй матрицей B
+    return 0;  // Завершение программы с кодом возврата 0 (успешное завершение)
 }
