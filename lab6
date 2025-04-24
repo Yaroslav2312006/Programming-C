@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX_LINE_LENGTH 256
+#define TARGET_YEAR 1980
+int main() {
+    FILE *input_file, *output_file;
+    char line[MAX_LINE_LENGTH];
+    char surname[50], name[50], patronymic[50];
+    int birth_year;
+    // Открываем входной файл для чтения
+    input_file = fopen("input.txt", "r");
+    if (input_file == NULL) {
+        perror("Не удалось открыть входной файл");
+        return EXIT_FAILURE;
+    }
+    // Открываем выходной файл для записи
+    output_file = fopen("output.txt", "w");
+    if (output_file == NULL) {
+        perror("Не удалось открыть выходной файл");
+        fclose(input_file);
+        return EXIT_FAILURE;
+    }
+    // Читаем файл построчно
+    while (fgets(line, sizeof(line), input_file) != NULL) {
+        // Парсим строку: Фамилия Имя Отчество ГодРождения
+        if (sscanf(line, "%s %s %s %d", surname, name, patronymic, &birth_year) == 4) {
+            // Проверяем год рождения
+            if (birth_year > TARGET_YEAR) {
+                // Записываем строку в выходной файл
+                fprintf(output_file, "%s", line);
+            }
+        } else {
+            printf("Ошибка формата строки: %s", line);
+        }
+    }
+    // Закрываем файлы
+    fclose(input_file);
+    fclose(output_file);
+    printf("Обработка завершена. Результат записан в output.txt\n");
+    return EXIT_SUCCESS;
+}
