@@ -1,0 +1,3 @@
+#define MAX_N 100
+
+void matrix_op(double a[MAX_N][MAX_N], double b[MAX_N][MAX_N], double res[MAX_N][MAX_N], int n, char op);
