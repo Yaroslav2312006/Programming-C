@@ -1,0 +1,17 @@
+#include "matrix_ops.h"
+
+void matrix_op(double a[MAX_N][MAX_N], double b[MAX_N][MAX_N], double res[MAX_N][MAX_N], int n, char op) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            switch (op) {
+                case '+': res[i][j] = a[i][j] + b[i][j]; break;
+                case '-': res[i][j] = a[i][j] - b[i][j]; break;
+                case '*':
+                    res[i][j] = 0;
+                    for (int k = 0; k < n; k++)
+                        res[i][j] += a[i][k] * b[k][j];
+                    break;
+            }
+        }
+    }
+}
