@@ -1,42 +1,42 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#define MAX_LINE_LENGTH 256
-#define TARGET_YEAR 1980
+#include <stdio.h>   // Подключаем библиотеку для работы с вводом/выводом
+#include <stdlib.h>  // Подключаем библиотеку для работы с памятью и стандартными функциям
+#include <string.h>  // Подключаем библиотеку для работы со строками
+#define MAX_LINE_LENGTH 256 // Определяем максимальную длину строки
+#define TARGET_YEAR 1980 // Определяем целевой год для фильтрации
 int main() {
-    FILE *input_file, *output_file;
-    char line[MAX_LINE_LENGTH];
-    char surname[50], name[50], patronymic[50];
-    int birth_year;
+    FILE *input_file, *output_file; // Указатели на входной и выходной файлы
+    char line[MAX_LINE_LENGTH]; // Массив для хранения строки из файла
+    char surname[50], name[50], patronymic[50]; // Массивы для хранения фамилии, имени и отчества
+    int birth_year;  // Переменная для хранения года рождения
     // Открываем входной файл для чтения
     input_file = fopen("input.txt", "r");
-    if (input_file == NULL) {
-        perror("Не удалось открыть входной файл");
-        return EXIT_FAILURE;
+    if (input_file == NULL) { // Проверяем, удалось ли открыть файл
+        perror("Не удалось открыть входной файл"); // Выводим сообщение об ошибке
+        return EXIT_FAILURE; // Завершаем программу с кодом ошибки
     }
     // Открываем выходной файл для записи
     output_file = fopen("output.txt", "w");
-    if (output_file == NULL) {
-        perror("Не удалось открыть выходной файл");
-        fclose(input_file);
-        return EXIT_FAILURE;
+    if (output_file == NULL) { // Проверяем, удалось ли открыть файл
+        perror("Не удалось открыть выходной файл"); // Выводим сообщение об ошибке
+        fclose(input_file);     // Закрываем входной файл перед выходом
+        return EXIT_FAILURE;     // Завершаем программу с кодом ошибки
     }
     // Читаем файл построчно
-    while (fgets(line, sizeof(line), input_file) != NULL) {
+    while (fgets(line, sizeof(line), input_file) != NULL) { 
         // Парсим строку: Фамилия Имя Отчество ГодРождения
         if (sscanf(line, "%s %s %s %d", surname, name, patronymic, &birth_year) == 4) {
-            // Проверяем год рождения
+            // Проверяем год рождения на соответствие условию
             if (birth_year > TARGET_YEAR) {
-                // Записываем строку в выходной файл
+                // Записываем строку в выходной файл, если год рождения больше целевого года
                 fprintf(output_file, "%s", line);
             }
         } else {
-            printf("Ошибка формата строки: %s", line);
+            printf("Ошибка формата строки: %s", line); // Сообщаем об ошибке формата строки
         }
     }
-    // Закрываем файлы
+    // Закрываем файлы после завершения работы с ними
     fclose(input_file);
     fclose(output_file);
-    printf("Обработка завершена. Результат записан в output.txt\n");
-    return EXIT_SUCCESS;
+    printf("Обработка завершена. Результат записан в output.txt\n"); // Сообщаем о завершении обработки данных
+    return EXIT_SUCCESS;  // Завершаем программу успешно
 }
