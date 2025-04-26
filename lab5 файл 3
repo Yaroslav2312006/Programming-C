@@ -1,10 +1,13 @@
-#ifndef MATRIX_OPERATIONS_H
-#define MATRIX_OPERATIONS_H
-
+#ifndef MATRIX_OPERATIONS_H // Проверяем, не был ли уже определён этот заголовочный файл
+#define MATRIX_OPERATIONS_H // Если не был, определяем его
+// Объявление функции для создания матрицы размером n x n
 double **create_matrix(int n);
+// Объявление функции для освобождения памяти, занятой матрицей
 void free_matrix(double **matrix, int n);
+// Объявление функции для ввода элементов матрицы от пользователя
 void input_matrix(double **matrix, int n, const char *name);
+// Объявление функции для вывода элементов матрицы на экран
 void print_matrix(double **matrix, int n);
+// Объявление функции для выполнения операций над двумя матрицами (сложение, вычитание, умножение)
 double **matrix_operation(double **A, double **B, int n, char op);
-
-#endif
+#endif // Завершаем условную компиляцию для этого заголовочного файла
