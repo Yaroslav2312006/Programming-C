@@ -1,82 +1,89 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdio.h>  // Подключаем библиотеку для работы с вводом/выводом
+#include <stdlib.h> // Подключаем библиотеку для работы с динамической памятью
 // Создание матрицы n x n
 double **create_matrix(int n) {
+    // Выделяем память для массива указателей на строки матрицы
     double **matrix = (double **)malloc(n * sizeof(double *));
-    if (!matrix) return NULL;
+    if (!matrix) return NULL; // Проверка на успешность выделения памяти для строк
+    // Выделяем память для каждой строки матрицы
     for (int i = 0; i < n; i++) {
-        matrix[i] = (double *)malloc(n * sizeof(double));
-        if (!matrix[i]) {
+        matrix[i] = (double *)malloc(n * sizeof(double)); // Выделяем память для i-й строки
+        if (!matrix[i]) { // Проверка на успешность выделения памяти для строки
             // Если выделение не удалось, освобождаем уже выделенную память
             for (int j = 0; j < i; j++) {
-                free(matrix[j]);
+                free(matrix[j]); // Освобождаем память для всех ранее выделенных строк
             }
-            free(matrix);
-            return NULL;
+            free(matrix); // Освобождаем память для массива указателей
+            return NULL; // Возвращаем NULL в случае ошибки
         }
     }
-    return matrix;
+    return matrix; // Возвращаем указатель на созданную матрицу
 }
 // Освобождение памяти матрицы
 void free_matrix(double **matrix, int n) {
-    if (!matrix) return;
+    if (!matrix) return; // Если матрица NULL, ничего не делаем
+
+    // Освобождаем память для каждой строки матрицы
     for (int i = 0; i < n; i++) {
-        free(matrix[i]);
+        free(matrix[i]); // Освобождаем память для i-й строки
     }
-    free(matrix);
+    free(matrix); // Освобождаем память для массива указателей на строки
 }
+
 // Ввод матрицы
 void input_matrix(double **matrix, int n, const char *name) {
-    printf("Введите элементы матрицы %s (%d x %d):\n", name, n, n);
+    printf("Введите элементы матрицы %s (%d x %d):\n", name, n, n); // Запрос ввода элементов у пользователя
+
+    // Цикл по строкам и столбцам матрицы для ввода значений
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            printf("%s[%d][%d] = ", name, i, j);
-            scanf("%lf", &matrix[i][j]);
+            printf("%s[%d][%d] = ", name, i, j); // Запрос значения элемента [i][j]
+            scanf("%lf", &matrix[i][j]); // Считываем значение элемента в матрицу
         }
     }
 }
 // Вывод матрицы
 void print_matrix(double **matrix, int n) {
+    // Цикл по строкам и столбцам матрицы для вывода значений
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
-            printf("%8.2lf ", matrix[i][j]);
+            printf("%8.2lf ", matrix[i][j]); // Вывод значения элемента с форматированием до двух знаков после запятой
         }
-        printf("\n");
+        printf("\n"); // Переход на новую строку после вывода всех элементов текущей строки
     }
 }
 // Операции с матрицами (+, -, *)
 double **matrix_operation(double **A, double **B, int n, char op) {
-    double **result = create_matrix(n);
-    if (!result) return NULL;
-
-    switch (op) {
-        case '+':
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    result[i][j] = A[i][j] + B[i][j];
+    double **result = create_matrix(n); // Создаём матрицу для хранения результата операции
+    if (!result) return NULL; // Проверка на успешность выделения памяти для результата
+    switch (op) { // В зависимости от введенной операции выполняем соответствующее действие
+        case '+': // Сложение матриц A и B
+            for (int i = 0; i < n; i++) { 
+                for (int j = 0; j < n; j++) { 
+                    result[i][j] = A[i][j] + B[i][j]; // Суммируем соответствующие элементы двух матриц 
                 }
             }
             break;
-        case '-':
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    result[i][j] = A[i][j] - B[i][j];
+        case '-': // Вычитание матриц A и B 
+            for (int i = 0; i < n; i++) { 
+                for (int j = 0; j < n; j++) { 
+                    result[i][j] = A[i][j] - B[i][j]; // Вычитаем соответствующие элементы двух матриц 
                 }
             }
             break;
-        case '*':
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    result[i][j] = 0;
-                    for (int k = 0; k < n; k++) {
-                        result[i][j] += A[i][k] * B[k][j];
+        case '*': // Умножение матриц A и B 
+            for (int i = 0; i < n; i++) { 
+                for (int j = 0; j < n; j++) { 
+                    result[i][j] = 0; // Инициализируем элемент результата нулем 
+                    for (int k = 0; k < n; k++) { 
+                        result[i][j] += A[i][k] * B[k][j]; // Выполняем умножение и суммирование по правилу умножения матриц 
                     }
                 }
             }
             break;
-        default:
-            free_matrix(result, n);
+        default: // Если операция не распознана, освобождаем память и возвращаем NULL
+            free_matrix(result, n); 
             return NULL;
     }
-    return result;
+    return result; // Возвращаем указатель на результат операции над матрицами
 }
