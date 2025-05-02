@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <string.h>
+// Определение структуры "humen" (человек)
+struct humen {
+    char name[50];      
+    char surname[50];   
+    int birthYear;      
+};
+// Функция сравнения для сортировки по году рождения
+// Принимает два указателя void*, которые приводятся к типу struct humen*
+int compareByBirthYear(const void *a, const void *b) {
+    const struct humen *h1 = (const struct humen *)a;
+    const struct humen *h2 = (const struct humen *)b;
+    return h1->birthYear - h2->birthYear;
+}
+int main() {
+    const int SIZE = 4;// Константа для размера массивов
+    struct humen array1[SIZE];// Исходный массив структур  
+    struct humen array2[SIZE];// Массив для сортированной копии
+    printf("Please enter the data my favourite user:\n", SIZE);
+// Цикл ввода данных для каждого человека
+	for (int i = 0; i < SIZE; ++i) {
+        printf("humans %d:\n", i + 1);
+        printf("Name: ");
+        scanf("%s", array1[i].name);
+        printf("Familia: ");
+        scanf("%s", array1[i].surname);
+        printf("Year of birth: ");
+        scanf("%d", &array1[i].birthYear);
+    }
+// Копирование данных из array1 в array2
+	for (int i = 0; i < SIZE; ++i) {
+        strcpy(array2[i].name, array1[i].name);
+        strcpy(array2[i].surname, array1[i].surname);
+        array2[i].birthYear = array1[i].birthYear;
+    }
+// Сортировка массива array2 по году рождения
+    qsort(array2, SIZE, sizeof(struct humen), compareByBirthYear);
+// Вывод отсортированного массива
+	printf("\n Sorted array by year of birth:\n");
+    for (int i = 0; i < SIZE; ++i) {
+        printf("Name: %s, Familia: %s, year of birth: %d\n",
+               array2[i].name, array2[i].surname, array2[i].birthYear);
+    }
+    return 0;
+}
