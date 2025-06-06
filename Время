@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <time.h>
+
+int main() {
+    clock_t start = clock(); // Запуск таймера
+
+    // Здесь может быть любой код
+    printf("Программа выполняется...\n");
+
+    clock_t end = clock(); // Остановка таймера
+    double time_spent = (double)(end - start) / CLOCKS_PER_SEC; // Вычисление времени
+
+    printf("Время работы программы: %.5f секунд\n", time_spent);
+    return 0;
+}
