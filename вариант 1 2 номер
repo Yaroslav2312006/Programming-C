@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+// Функция заполнения матрицы случайными числами
+void create_matrix(int m, int matrix[m][m]) {
+    srand(time(0)); // Инициализация генератора случайных чисел
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++) {
+            matrix[i][j] = rand() % 10; // Случайное число от 0 до 9
+        }
+    }
+}
+
+// Функция вывода матрицы на экран
+void print_matrix(int m, int matrix[m][m]) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++) {
+            printf("%d ", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int m;
+    printf("Введите размер матрицы: ");
+    scanf("%d", &m);
+
+    int matrix[m][m];
+    create_matrix(m, matrix); // Заполняем матрицу
+
+    printf("Сгенерированная матрица:\n");
+    print_matrix(m, matrix); // Выводим матрицу
+
+    return 0;
+}
