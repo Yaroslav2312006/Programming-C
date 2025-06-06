@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+// Функция заполнения матрицы случайными числами
+void create_matrix(int m, int matrix[m][m]) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++) {
+            matrix[i][j] = rand() % 10;
+        }
+    }
+}
+
+// Функция сохранения матрицы в файл
+void save_matrix(FILE *file, int m, int matrix[m][m]) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++) {
+            fprintf(file, "%d ", matrix[i][j]);
+        }
+        fprintf(file, "\n");
+    }
+}
+
+int main() {
+    srand(time(0));
+    int m;
+    printf("Введите размер матриц: ");
+    scanf("%d", &m);
+
+    int matrix1[m][m], matrix2[m][m];
+    create_matrix(m, matrix1); // Создаем первую матрицу
+    create_matrix(m, matrix2); // Создаем вторую матрицу
+
+    // Сохраняем матрицы в файл
+    FILE *input = fopen("Input.txt", "w");
+    save_matrix(input, m, matrix1);
+    fprintf(input, "\n");
+    save_matrix(input, m, matrix2);
+    fclose(input);
+
+    printf("Матрицы сохранены в Input.txt\n");
+    return 0;
+}
