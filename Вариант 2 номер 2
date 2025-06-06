@@ -1,0 +1,69 @@
+#include <stdio.h>
+
+// Функция умножения матриц
+void matrix_multiply(int m, int A[m][m], int B[m][m], int C[m][m]) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++) {
+            C[i][j] = 0;
+            for (int k = 0; k < m; k++) {
+                C[i][j] += A[i][k] * B[k][j]; // Умножение строки на столбец
+            }
+        }
+    }
+}
+
+// Функция сложения матриц
+void matrix_add(int m, int A[m][m], int B[m][m], int C[m][m]) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++) {
+            C[i][j] = A[i][j] + B[i][j]; // Поэлементное сложение
+        }
+    }
+}
+
+// Функция сохранения матрицы в файл
+void save_matrix(FILE *file, int m, int matrix[m][m]) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++) {
+            fprintf(file, "%d ", matrix[i][j]);
+        }
+        fprintf(file, "\n");
+    }
+}
+
+int main() {
+    int m;
+    printf("Введите размер матриц: ");
+    scanf("%d", &m);
+
+    int A[m][m], B[m][m];
+
+    // Чтение матриц из файла
+    FILE *input = fopen("Input.txt", "r");
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++) {
+            fscanf(input, "%d", &A[i][j]);
+        }
+    }
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++) {
+            fscanf(input, "%d", &B[i][j]);
+        }
+    }
+    fclose(input);
+
+    int mult[m][m], sum[m][m];
+    matrix_multiply(m, A, B, mult); // Умножение
+    matrix_add(m, A, B, sum);       // Сложение
+
+    // Сохранение результатов
+    FILE *output = fopen("output.txt", "w");
+    fprintf(output, "Результат умножения:\n");
+    save_matrix(output, m, mult);
+    fprintf(output, "\nРезультат сложения:\n");
+    save_matrix(output, m, sum);
+    fclose(output);
+
+    printf("Результаты сохранены в output.txt\n");
+    return 0;
+}
