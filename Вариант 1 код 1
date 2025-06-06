@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <time.h>
+#include <string.h>
+
+int main() {
+    // Открываем файл для чтения даты
+    FILE *file = fopen("Input.txt", "r");
+    if (file == NULL) {
+        printf("Ошибка: файл Input.txt не найден.\n");
+        return 1;
+    }
+
+    // Читаем дату в формате ГГГГ-ММ-ДД
+    char date_str[11];
+    fscanf(file, "%s", date_str);
+    fclose(file);
+
+    // Разбираем строку на год, месяц и день
+    int year, month, day;
+    sscanf(date_str, "%d-%d-%d", &year, &month, &day);
+
+    // Получаем текущую дату
+    time_t now = time(NULL);
+    struct tm *current_time = localtime(&now);
+    int current_year = current_time->tm_year + 1900;
+    int current_month = current_time->tm_mon + 1;
+    int current_day = current_time->tm_mday;
+
+    // Преобразуем целевую дату в структуру tm
+    struct tm target_date = {0};
+    target_date.tm_year = year - 1900; // Год в tm отсчитывается с 1900
+    target_date.tm_mon = month - 1;    // Месяцы 0-11
+    target_date.tm_mday = day;
+    time_t target_time = mktime(&target_date); // Конвертируем в секунды с 1970
+
+    // Вычисляем разницу в секундах и переводим в дни
+    double diff_seconds = difftime(target_time, now);
+    int diff_days = diff_seconds / (60 * 60 * 24);
+
+    printf("До даты %s осталось %d дней.\n", date_str, diff_days);
+
+    return 0;
+}
