@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+// Функция вычисления суммы элементов матрицы
+int matrix_sum(int m, int matrix[m][m]) {
+    int sum = 0;
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++) {
+            sum += matrix[i][j];
+        }
+    }
+    return sum;
+}
+
+// Функция создания случайной матрицы
+void create_matrix(int m, int matrix[m][m]) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++) {
+            matrix[i][j] = rand() % 10;
+        }
+    }
+}
+
+// Функция сохранения матрицы в файл
+void save_matrix(FILE *file, int m, int matrix[m][m]) {
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++) {
+            fprintf(file, "%d ", matrix[i][j]);
+        }
+        fprintf(file, "\n");
+    }
+}
+
+int main() {
+    srand(time(0));
+    int m;
+    printf("Введите размер матрицы: ");
+    scanf("%d", &m);
+
+    int matrix1[m][m], matrix2[m][m];
+    int sum1, sum2;
+
+    // Генерируем матрицы, пока суммы не совпадут
+    do {
+        create_matrix(m, matrix1);
+        sum1 = matrix_sum(m, matrix1);
+
+        create_matrix(m, matrix2);
+        sum2 = matrix_sum(m, matrix2);
+    } while (sum1 != sum2);
+
+    // Сохраняем результаты в файл
+    FILE *output = fopen("output.txt", "w");
+    fprintf(output, "Матрица 1 (сумма = %d):\n", sum1);
+    save_matrix(output, m, matrix1);
+    fprintf(output, "\nМатрица 2 (сумма = %d):\n", sum2);
+    save_matrix(output, m, matrix2);
+    fclose(output);
+
+    printf("Матрицы сохранены в output.txt\n");
+    return 0;
+}
