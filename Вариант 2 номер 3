@@ -1,0 +1,45 @@
+#include <stdio.h>
+
+int main() {
+    int m;
+    printf("Введите размер матрицы: ");
+    scanf("%d", &m);
+
+    int matrix[m][m];
+
+    // Чтение матрицы из файла
+    FILE *input = fopen("Input.txt", "r");
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++) {
+            fscanf(input, "%d", &matrix[i][j]);
+        }
+    }
+    fclose(input);
+
+    // Поиск минимального элемента
+    int min = matrix[0][0];
+    int min_row = 0, min_col = 0;
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++) {
+            if (matrix[i][j] < min) {
+                min = matrix[i][j];
+                min_row = i;
+                min_col = j;
+            }
+        }
+    }
+    printf("Минимальный элемент: matrix[%d][%d] = %d\n", min_row, min_col, min);
+
+    // Подсчет нечетных чисел
+    int odd_count = 0;
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < m; j++) {
+            if (matrix[i][j] % 2 != 0) {
+                odd_count++;
+            }
+        }
+    }
+    printf("Количество нечетных чисел: %d\n", odd_count);
+
+    return 0;
+}
